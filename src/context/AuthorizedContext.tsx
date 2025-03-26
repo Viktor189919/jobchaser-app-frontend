@@ -23,17 +23,14 @@ function AuthProvider({children} : {children : React.ReactNode}) {
 
         // Returns nothing if no result. Is handled in form component
         if (!result) {
-            console.error("Unexpected error");
+            console.error("Error, no result from authcontext login function");
             return;
         }
-        
-        // Check if no token is returned
-        if (!result.JWT) {
-            console.error(result.message)
+
+        if (result.status !== 200) {
             return result;
         }
-
-        localStorage.setItem("jobchaserToken", result.JWT)
+        
         setIsAuthorized(prevState => !prevState);
         return result; 
     }
